@@ -9,7 +9,7 @@
 
 # Pros and Cons 
 * Pros :
-  * when you'll save a class and it has any pointer member then this big problem because FrameObject is copying the memory address of pointer. when you'll to load     the this binary object then this is high probability (%99.9) would give a segmentation fault error when get the this member ! (Because memory address are         would change or delete !)
+  * when you'll save a class and it has any pointer member then this big problem because FrameObject is copying the memory address of pointer. when you'll to load     the this binary object then this would give a segmentation fault error when get the this member ! (Because memory address are may changed or deleted !)
 
 * Cons :
 
