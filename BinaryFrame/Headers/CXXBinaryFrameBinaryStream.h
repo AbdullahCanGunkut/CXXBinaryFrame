@@ -37,27 +37,27 @@ virtual ~BinaryFrameStream();
 
 
 
-FrameObjectBase* GetFrameObjectFromIndex(unsigned index) noexcept;
-std::vector<FrameObjectBase*> GetFrameObjectsByName(const std::string& name , BinaryStreamSearchFlag flag = BinaryStreamSearchFlag::BinaryStreamSearch_JustChild) noexcept;
+FrameObjectBase* GetFrameObjectFromIndex(unsigned index) noexcept(false);
+std::vector<FrameObjectBase*> GetFrameObjectsByName(const std::string& name , BinaryStreamSearchFlag flag = BinaryStreamSearchFlag::BinaryStreamSearch_Deep) noexcept(false);
 
 
 
 
-bool GetBufferFromFile(const std::string& file_name) noexcept;//Getting binary buffer from a file.
-bool SaveBufferToFile(const std::string& file_name) noexcept;//Saving encoded data (binary buffer) to a file.
+bool GetBufferFromFile(const std::string& file_name) noexcept(false);//Getting binary buffer from a file.
+bool SaveBufferToFile(const std::string& file_name) noexcept(false);//Saving encoded data (binary buffer) to a file.
 
-virtual void Encode() noexcept;//Encoding all FrameObjects in 'frames' into the buffer.
-virtual void Decode() noexcept;//Decoding the buffer (binary buffer) into the frames.
+virtual void Encode() noexcept(false);//Encoding all FrameObjects in 'frames' into the buffer.
+virtual void Decode() noexcept(false);//Decoding the buffer (binary buffer) into the frames.
 
 
-BinaryFrameBuffer GetBinaryFrameBuffer() noexcept;
+BinaryFrameBuffer GetBinaryFrameBuffer() noexcept(false);
 
 
 
 
 //For Range Based Loop
-typename BinaryObjectFrames::iterator begin () {return this->frames.begin();}
-typename BinaryObjectFrames::iterator end ()  {return this->frames.end();}
+typename BinaryObjectFrames::iterator begin ();
+typename BinaryObjectFrames::iterator end ();
 
 
 

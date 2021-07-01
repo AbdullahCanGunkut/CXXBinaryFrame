@@ -15,7 +15,7 @@
 
 #define FRAME_OBJECT_PACKAGE(...) CXX_BINARY_FRAME_NAMESPACE::PointerStorage\
 <CXX_BINARY_FRAME_NAMESPACE::FrameObjectBase>( \
-(CXX_BINARY_FRAME_NAMESPACE::FrameObjectBase*)new CXX_BINARY_FRAME_FACILITATE_STATIC_NAMESPACE::FrameObjectPackage(__VA_ARGS__))
+(CXX_BINARY_FRAME_NAMESPACE::FrameObjectBase*)new CXX_BINARY_FRAME_FACILITATE_STATIC_NAMESPACE::FrameObjectPackage(CXX_BINARY_FRAME_FACILITATE_STATIC_NAMESPACE::ObjectType({__VA_ARGS__})))
 
 
 
@@ -37,12 +37,12 @@ typedef std::vector<PointerStorage<FrameObjectBase>> ObjectType;
 FrameObjectPackage(const ObjectType& arr = ObjectType() , const std::string& name = "");
 
 
-virtual size_type Encode(BinaryFrameBuffer& stack) noexcept;
-virtual size_type Decode(void* ref , unsigned remain) noexcept;
+virtual size_type Encode(BinaryFrameBuffer& stack) noexcept(false);
+virtual size_type Decode(void* ref , unsigned remain) noexcept(false);
 
-virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept;
-virtual size_type GetSizeof() noexcept;
-virtual ExtentArray GetExtent() noexcept;
+virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept(false);
+virtual size_type GetSizeof() noexcept(false);
+virtual ExtentArray GetExtent() noexcept(false);
 
 
 };
@@ -57,12 +57,12 @@ public:
 FrameObjectString(const std::string& str = "" , const std::string& name = "");
 
 
-virtual size_type Encode(BinaryFrameBuffer& stack) noexcept;
-virtual size_type Decode(void* ref , unsigned remain) noexcept;
+virtual size_type Encode(BinaryFrameBuffer& stack) noexcept(false);
+virtual size_type Decode(void* ref , unsigned remain) noexcept(false);
 
-virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept;
-virtual size_type GetSizeof() noexcept;
-virtual ExtentArray GetExtent() noexcept;
+virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept(false);
+virtual size_type GetSizeof() noexcept(false);
+virtual ExtentArray GetExtent() noexcept(false);
 
 
 };

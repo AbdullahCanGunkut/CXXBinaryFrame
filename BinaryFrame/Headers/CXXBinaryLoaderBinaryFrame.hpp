@@ -13,6 +13,16 @@
 #include <CXXBinaryFrameTypename.h>
 
 
+/*
+Visual Studio       _MSC_VER
+gcc                 __GNUC__
+clang               __clang__
+emscripten          __EMSCRIPTEN__ (for asm.js and webassembly)
+MinGW 32            __MINGW32__
+MinGW-w64 32bit     __MINGW32__
+MinGW-w64 64bit     __MINGW64__
+*/
+
 
 #define CXX_BINARY_FRAME_NAMESPACE CXXBinaryLoader::CXXBinaryFrame
 
@@ -31,10 +41,22 @@
 #define INDEX_ARRAY(...) CXXBinaryLoader::CXXBinaryFrame::IndexArray({__VA_ARGS__})
 
 
+#if defined(__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wterminate"
 #pragma GCC diagnostic ignored "-Wnarrowing"
 #pragma GCC diagnostic ignored "-Wpointer-arith"
+
+#elif defined(_MSC_VER)
+
+#elif defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wterminate"
+#pragma clang diagnostic ignored "-Wnarrowing"
+#pragma clang diagnostic ignored "-Wpointer-arith"
+
+
+#endif
 
 namespace CXXBinaryLoader{
 namespace CXXBinaryFrame{
@@ -89,17 +111,17 @@ class FrameObjectBase{/*A Base for FrameObjects.*/
 public:
 FrameObjectBase(const ObjectName& name) : name(name){}
 virtual ~FrameObjectBase(){}
-virtual std::string GetTypename() noexcept{return std::string("");}
-virtual ExtentArray GetExtent () noexcept{
+virtual std::string GetTypename() noexcept(false){return std::string("");}
+virtual ExtentArray GetExtent () noexcept(false){
 ExtentArray extent;
 unsigned count;
 GetNumArrayPointers(this->GetTypename() , extent , count);
 return extent;
 }
-virtual size_type GetSizeof() noexcept{return 0x00;}
-virtual size_type Encode(BinaryFrameBuffer& stack) noexcept{return 0x00;}//Write to ref.
-virtual size_type Decode(void* ref , unsigned remain) noexcept{return 0x00;}//Read from ref.
-virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept{return NULL;} //returning the current class or obj.
+virtual size_type GetSizeof() noexcept(false){return 0x00;}
+virtual size_type Encode(BinaryFrameBuffer& stack) noexcept(false){return 0x00;}//Write to ref.
+virtual size_type Decode(void* ref , unsigned remain) noexcept(false){return 0x00;}//Read from ref.
+virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept(false){return NULL;} //returning the current class or obj.
 
 ObjPtr GetObj (unsigned index){return GetObj(IndexArray({index}));}
 
@@ -107,7 +129,7 @@ ObjectName name;
 };
 
 template <typename T>
-class FrameObject : public FrameObjectBase{/*FrameObject contains class and fundamenta types ...*/
+class FrameObject : public FrameObjectBase{/*FrameObject contains class and fundamental types ...*/
 using Base = FrameObjectBase;
 
 public:
@@ -121,10 +143,10 @@ else this->obj = obj;
 }
 virtual ~FrameObject(){}
 
-std::string GetTypename() noexcept override{return std::string(typeid(T).name());}//Get typename of T as string.
-size_type GetSizeof() noexcept override{return sizeof(T);} //Get sizeof T.
+std::string GetTypename() noexcept(false) override{return std::string(typeid(T).name());}//Get typename of T as string.
+size_type GetSizeof() noexcept(false) override{return sizeof(T);} //Get sizeof T.
 
-virtual size_type Encode(BinaryFrameBuffer& stack) noexcept{//Save the obj to the stack.
+virtual size_type Encode(BinaryFrameBuffer& stack) noexcept(false){//Save the obj to the stack.
 
 const unsigned long location = stack.size();
 stack.resize(stack.size() + sizeof(T));
@@ -137,7 +159,7 @@ memcpy(&stack[location] , &this->obj , sizeof(T));
 return sizeof(T);
 }
 
-virtual size_type Decode(void* ref , unsigned remain) noexcept{//Load from ref as obj.
+virtual size_type Decode(void* ref , unsigned remain) noexcept(false){//Load from ref as obj.
 
 CHECK_REMAIN(remain , sizeof(T) ,  "Index out of Range !");
 
@@ -149,7 +171,7 @@ memcpy(&this->obj , ref , sizeof(T));
 return sizeof(T);
 }
 
-virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept{//Get current obj.
+virtual ObjPtr GetObj (const IndexArray& arr = IndexArray()) noexcept(false){//Get current obj.
 if constexpr (std::is_pointer<T>::value)//Check if type is pointer and return as pointer.
 return (ObjPtr)this->obj;
 else
@@ -167,4 +189,13 @@ T obj; //holding a object for encode and decode.
 }
 
 }
+
+#if defined(__GNUC__)
 #pragma GCC diagnostic pop
+
+#elif defined(_MSC_VER)
+
+#elif defined(__clang__)
+#pragma clang diagnostic pop
+
+#endif
