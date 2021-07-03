@@ -70,7 +70,6 @@ typedef unsigned CountType;
 
 template<typename T>
 unsigned CalculateIndexFromIndexArray(const IndexArray& arr) noexcept(false){
-using namespace std::literals::string_literals;
 
 static_assert(std::is_array<T>::value , "T is must be array !" );
 
@@ -98,7 +97,7 @@ throw std::out_of_range(
 #ifdef __cpp_lib_format
 std::format("Index out of range ! Maximun Index : {:d} , Current Index : {:d}" , MAXIMUN_INDEX - 1  , i)
 #else
-"Index out of range ! Maximun Index : "s + std::to_string(MAXIMUN_INDEX - 1) + " , Current Index : " + std::to_string(i)
+std::string("Index out of range ! Maximun Index : ") + std::to_string(MAXIMUN_INDEX - 1) + " , Current Index : " + std::to_string(i)
 #endif
 );
 }
