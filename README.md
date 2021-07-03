@@ -138,7 +138,8 @@ std::cout << std::endl;
 ```
 
 git clone git://github.com/AbdullahCanGunkut/CXXBinaryFrame
-makedir CXXBinaryFrame/BinaryFrame/build
+mkdir CXXBinaryFrame/BinaryFrame/build
 cd CXXBinaryFrame/BinaryFrame/build
 cmake -DCXX_STANDARD_VERSION=11 -build ..
+make
 ```
