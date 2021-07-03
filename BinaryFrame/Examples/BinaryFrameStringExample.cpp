@@ -10,7 +10,7 @@ int main (){
 {
 
 MAKE_BINARY_FRAME_STREAM
-(stream , MAKE_BINARY_FRAMEBUFFER(
+(stream , MAKE_BINARY_FRAME_OBJECTS(
 FRAME_OBJECT_STRING("hello my friend !" , "Message"),
 FRAME_OBJECT_STRING("Good Bye !" , "Message") ,
 FRAME_OBJECT_STRING("Get out !" , "Command"),
@@ -27,7 +27,7 @@ CXXBinaryLoader::CXXBinaryFrame::IndexArray;
 
 
 MAKE_BINARY_FRAME_STREAM(stream2 ,
-MAKE_BINARY_FRAMEBUFFER(
+MAKE_BINARY_FRAME_OBJECTS(
 FRAME_OBJECT_STRING("",  "Message"),
 FRAME_OBJECT_STRING("" , "Message") ,
 FRAME_OBJECT_STRING("" , "Command"),

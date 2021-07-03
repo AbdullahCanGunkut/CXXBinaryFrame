@@ -27,7 +27,7 @@ char name[64];
 
 
 MAKE_BINARY_FRAME_STREAM
-(stream , MAKE_BINARY_FRAMEBUFFER(
+(stream , MAKE_BINARY_FRAME_OBJECTS(
 FRAME_OBJECT_VECTOR(ClassA , "MyVector" ,
 ClassA("Money") , ClassA("Car") ,
 ClassA("World") , ClassA("Trade") ,
@@ -46,7 +46,7 @@ CXXBinaryLoader::CXXBinaryFrame::IndexArray;
 
 
 MAKE_BINARY_FRAME_STREAM(stream2 ,
-MAKE_BINARY_FRAMEBUFFER(
+MAKE_BINARY_FRAME_OBJECTS(
 FRAME_OBJECT_VECTOR(ClassA , "MyVector")
 ) , buff /*Encoded binary data*/);
 
@@ -65,7 +65,7 @@ CXX_BINARY_FRAME_FACILITATE_DYNAMIC_NAMESPACE::FrameObjectVector<ClassA>& ClassA
 
 try {
 
-stream2.GetFrameObjectFromIndex(4);
+stream2.GetFrameObjectFromIndex(4); // An Example about work of the exception system.
 }catch(const std::out_of_range& err){
 std::cout << "Err : " << err.what() << std::endl;
 
