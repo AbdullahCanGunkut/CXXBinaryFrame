@@ -3,7 +3,7 @@
 
 #define CXX_BINARY_FRAME_STREAM_NAMESPACE CXXBinaryLoader::CXXBinaryFrame::CXXBinaryStream
 
-#define MAKE_BINARY_FRAMEBUFFER(...) CXX_BINARY_FRAME_STREAM_NAMESPACE::BinaryFrameStream::BinaryObjectFrames({__VA_ARGS__})
+#define MAKE_BINARY_FRAME_OBJECTS(...) CXX_BINARY_FRAME_STREAM_NAMESPACE::BinaryFrameStream::BinaryObjectFrames({__VA_ARGS__})
 #define MAKE_BINARY_FRAME_STREAM(NAME , ...) CXX_BINARY_FRAME_STREAM_NAMESPACE::BinaryFrameStream NAME(__VA_ARGS__)
 
 namespace CXXBinaryLoader{
