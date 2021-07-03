@@ -4,7 +4,7 @@
 
 # Where I use it ?
 * Save and Load Everything in C++ as orderly ! But Expect of the them : 
-  * You can save the class but derived classes are expect it because you must write a FrameObject for save and load the derived classes ! (Pointers are raise an         issue ! segmentation-faults etc...)
+  * You can save the class but derived classes are expect it because you must write a FrameObject for save and load the derived classes ! (Pointers are               troubleshooting ! segmentation-faults etc...)
   * 
 
 # Pros and Cons 
@@ -133,8 +133,12 @@ std::cout << std::endl;
 ```
 
 # How I install it with Cmake ?
+
+### Linux
 ```
+
 git clone git://github.com/AbdullahCanGunkut/CXXBinaryFrame
+makedir CXXBinaryFrame/BinaryFrame/build
 cd CXXBinaryFrame/BinaryFrame/build
 cmake -DCXX_STANDARD_VERSION=11 -build ..
 ```
