@@ -128,9 +128,13 @@ obj->Print();
 std::cout << std::endl;
 }
 
-
-
 }
 
+```
 
+# How I install it with Cmake ?
+```
+git clone git://github.com/AbdullahCanGunkut/CXXBinaryFrame
+cd CXXBinaryFrame/BinaryFrame/build
+cmake -DCXX_STANDARD_VERSION=11 -build ..
 ```
