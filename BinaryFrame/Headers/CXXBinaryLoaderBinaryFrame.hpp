@@ -35,10 +35,14 @@ MinGW-w64 64bit     __MINGW64__
 #endif
 
 
-#define MAKE_BINARY_FRAMEOBJ(FRAME_OBJECT , TARGET) PointerStorage<FrameObjectBase>(static_cast<FrameObjectBase*>(new FRAME_OBJECT<decltype(TARGET)>(TARGET)))
+/*Creating a default FrameObject*/
+#define FRAME_OBJECT(TYPE ,OBJECT_NAME ,  ...) CXX_BINARY_FRAME_NAMESPACE::PointerStorage<CXX_BINARY_FRAME_NAMESPACE::FrameObjectBase> \
+((CXX_BINARY_FRAME_NAMESPACE::FrameObjectBase*) \
+new CXX_BINARY_FRAME_NAMESPACE::FrameObject<TYPE>(TYPE(__VA_ARGS__)  ,CXX_BINARY_FRAME_NAMESPACE::ObjectName(OBJECT_NAME)))
+
 #define CXX_BINARY_FRAME_THROW(EXCEPTION , INFO) throw EXCEPTION(std::string("[File : ") + __FILE__ + " , Function : "  + __FUNCTION__ + " , Line : " + std::to_string(__LINE__) + "] " + INFO)
 #define CHECK_REMAIN(REMAIN , MAXIMUN , INFO) if (REMAIN < MAXIMUN)CXX_BINARY_FRAME_THROW(std::out_of_range , INFO)
-#define INDEX_ARRAY(...) CXXBinaryLoader::CXXBinaryFrame::IndexArray({__VA_ARGS__})
+#define INDEX_ARRAY(...) CXX_BINARY_FRAME_NAMESPACE::IndexArray({__VA_ARGS__})
 
 
 #if defined(__GNUC__)
@@ -74,6 +78,8 @@ typedef std::string ObjectName;
 
 template <typename T>
 class PointerStorage final{//A basic smart pointer for hold the any pointer class or fundamental.
+static_assert(!std::is_pointer<T>::value , "T isn't must be a pointer type !");
+
 public:
 
 PointerStorage(T* target = nullptr) : target(target){}//
