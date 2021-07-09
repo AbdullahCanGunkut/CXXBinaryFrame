@@ -1,5 +1,5 @@
 # CXXBinaryFrame
-* A Basic Saving and Loading a Data as Binary For C++
+* A Basic Saving and Loading a Data as Binary (Byte by Byte) For C++
 
 
 # Where I use it ?
@@ -13,6 +13,8 @@
 
 * Cons :
 
+# Which C++ Standard Versions Supported ?
+* C++ 11 and Upper Versions 
 
 # A Facilitate for your CXXBinaryFrame and this is 'The CXXBinaryLoaderFacilitate Library' !
   * # What is That ?
